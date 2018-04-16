@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+  <appender name="STDOUT_DB" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+    <param name="File" value="${catalina.base}/logs/Uol2010/Banco/AccessoDatabase_StdOut.log"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- The default pattern: Date Priority [Category] Message\n -->
+      <param name="ConversionPattern" value="[%d{ISO8601}] %-5p %c %m %n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="DEBUG"/>
+      <param name="LevelMax" value="INFO"/>
+    </filter>
+  </appender>
+
+  <appender name="STDERR_DB" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+    <param name="File" value="${catalina.base}/logs/Uol2010/Banco/AccessoDatabase_StdErr.log"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- The default pattern: Date Priority [Category] Message\n -->
+      <param name="ConversionPattern" value="[%d{ISO8601}] %-5p %c %m %n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="WARN"/>
+      <param name="LevelMax" value="FATAL"/>
+    </filter>
+  </appender>
+
+  <appender name="STDOUT" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+    <param name="File" value="${catalina.base}/logs/Uol2010/Banco/Banco_StdOut.log"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- The default pattern: Date Priority [Category] Message\n -->
+      <param name="ConversionPattern" value="[%d{ISO8601}] %-5p %c %m %n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="DEBUG"/>
+      <param name="LevelMax" value="INFO"/>
+    </filter>
+  </appender>
+
+  <appender name="STDERR" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+    <param name="File" value="${catalina.base}/logs/Uol2010/Banco/Banco_StdErr.log"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- The default pattern: Date Priority [Category] Message\n -->
+      <param name="ConversionPattern" value="[%d{ISO8601}] %-5p %c %m %n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="WARN"/>
+      <param name="LevelMax" value="FATAL"/>
+    </filter>
+  </appender>
+
+  <appender name="EMAIL" class="org.apache.log4j.net.SMTPAppender">
+    <param name="BufferSize" value="10240" />
+    <param name="SMTPHost" value="mail.bncf.firenze.sbn.it" />
+    <param name="From" value="no-replay@bncf.firenze.sbn.it" />
+    <param name="To" value="monitoring@bncf.firenze.sbn.it" />
+    <param name="Subject" value="Uol 2010 - Modulo Banco (Test) Richiesta di Intervento"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%d{ISO8601}] %-5p %c %m %n" />
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="ERROR"/>
+      <param name="LevelMax" value="FATAL"/>
+    </filter>
+  </appender>
+  
+  <!-- SMTP will only log error events -->
+  <appender name="EMAIL_GMAIL" class="org.apache.log4j.net.SMTPAppender">
+    <param name="BufferSize" value="1" /> <!-- default is 512, changed for test cases to work -->
+    <!-- GMail will not work without this, log4j 1.2.16 is required this why earlier versions required hack-->
+    <param name="SMTPProtocol" value="smtps" />
+    <param name="SMTPHost" value="smtp.gmail.com" />
+    <param name="SMTPPort" value="465" />
+    <param name="SMTPUsername" value="" /> <!-- example@gmail.com -->
+    <param name="SMTPPassword" value="" /> <!-- passowrd -->
+    <param name="To" value="massimiliano.randazzo@gmail.com"/>
+    <param name="Subject" value="Uol 2010 - Modulo Banco Richiesta di Intervento"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%d{ISO8601}]%n%n%-5p%n%n%c%n%n%m%n%n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="ERROR"/>
+      <param name="LevelMax" value="FATAL"/>
+    </filter>
+  </appender>  
+  
+  <!-- SMTP will only log error events -->
+  <appender name="EMAIL_TIX" class="org.apache.log4j.net.SMTPAppender">
+    <param name="BufferSize" value="1" /> <!-- default is 512, changed for test cases to work -->
+    <!-- GMail will not work without this, log4j 1.2.16 is required this why earlier versions required hack-->
+    <param name="SMTPProtocol" value="smtps" />
+    <param name="SMTPHost" value="mail.bncf.dmz.tix" />
+    <param name="SMTPPort" value="587" />
+    <param name="SMTPUsername" value="notifiche@bncf.dmz.tix" /> <!-- example@gmail.com -->
+    <param name="SMTPPassword" value="notifiche" /> <!-- passowrd -->
+    <param name="From" value="notifiche@bncf.dmz.tix"/>
+    <param name="To" value="segnalazioniuol@bncf.dmz.tix"/>
+    <param name="Subject" value="Uol 2010 - Modulo Banco Richiesta di Intervento"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%d{ISO8601}]%n%n%-5p%n%n%c%n%n%m%n%n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="ERROR"/>
+      <param name="LevelMax" value="FATAL"/>
+    </filter>
+  </appender>  
+  
+  <category name="org.apache.commons.digester.Digester.sax">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="org.apache.commons.digester.Digester">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="org.apache.catalina.session.ManagerBase">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="org.apache.catalina.core.ContainerBase">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="org.apache.jasper.compiler.JspRuntimeContext">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="org.apache.jasper.servlet.JspServlet">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="mx.database">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT_DB"/>
+    <appender-ref ref="STDERR_DB"/>
+  </category>
+  <category name="net.bncf.validate.moduli.standard">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="mx.servlet.moduli.standard">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="mx.magEdit.mag.convert">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="org.apache.axis.utils.NSStack">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="mx.converter">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="net.bncf.xsd">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="net.bncf.validate.user">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="net.bncf.crypting">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="org.apache.axis.i18n.ProjectResourceBundle">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="org.apache.axis.encoding.SerializationContext">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="net.bncf.uol2010.banco.servlet.moduli">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="net.bncf.uol2010.banco.security">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="net.bncf.uol2010.banco.servlet.moduli.banco">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="net.bncf.uol2010.banco.utility">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="net.bncf.uol2010.banco.gestioneFunzioni">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="net.bncf.uol2010.servizi.controlli.implement">
+    <level value="WARN"/>
+    <appender-ref ref="STDERR"/>
+    <appender-ref ref="STDOUT"/>
+  </category>
+  <category name="net.bncf.uol2010.utility.email">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="net.bncf.uol2010.banco.servlet.moduli.anagraficaUtente">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="org.apache.axis.utils.JavaUtils">
+    <level value="WARN" />
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="org.apache.axis.encoding.ser.JAFDataHandlerDeserializerFactory">
+    <level value="WARN" />
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="net.bncf.uol2010.storicizzazione">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="it.siav.teca.export">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  <category name="mx.databaseStruttura">
+    <level value="WARN"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDERR"/>
+  </category>
+  
+  <root>
+    <level value="ERROR"/>
+    <appender-ref ref="EMAIL"/>
+  </root>
+</log4j:configuration>
